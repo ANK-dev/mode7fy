@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/mode7fy/static/css/main.45234040.chunk.css",
-    "main.js": "/mode7fy/static/js/main.ed1e5bba.chunk.js",
-    "main.js.map": "/mode7fy/static/js/main.ed1e5bba.chunk.js.map",
-    "runtime-main.js": "/mode7fy/static/js/runtime-main.2ce9b56a.js",
-    "runtime-main.js.map": "/mode7fy/static/js/runtime-main.2ce9b56a.js.map",
-    "static/css/2.4c97ca4f.chunk.css": "/mode7fy/static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.312a1868.chunk.js": "/mode7fy/static/js/2.312a1868.chunk.js",
-    "static/js/2.312a1868.chunk.js.map": "/mode7fy/static/js/2.312a1868.chunk.js.map",
-    "static/js/3.997edd46.chunk.js": "/mode7fy/static/js/3.997edd46.chunk.js",
-    "static/js/3.997edd46.chunk.js.map": "/mode7fy/static/js/3.997edd46.chunk.js.map",
-    "index.html": "/mode7fy/index.html",
-    "static/css/2.4c97ca4f.chunk.css.map": "/mode7fy/static/css/2.4c97ca4f.chunk.css.map",
-    "static/css/main.45234040.chunk.css.map": "/mode7fy/static/css/main.45234040.chunk.css.map",
-    "static/js/2.312a1868.chunk.js.LICENSE.txt": "/mode7fy/static/js/2.312a1868.chunk.js.LICENSE.txt"
+    "main.css": "https://ank-dev.github.io/mode7fy/static/css/main.6049bb68.chunk.css",
+    "main.js": "https://ank-dev.github.io/mode7fy/static/js/main.d6f19e1c.chunk.js",
+    "main.js.map": "https://ank-dev.github.io/mode7fy/static/js/main.d6f19e1c.chunk.js.map",
+    "runtime-main.js": "https://ank-dev.github.io/mode7fy/static/js/runtime-main.d28f5ecd.js",
+    "runtime-main.js.map": "https://ank-dev.github.io/mode7fy/static/js/runtime-main.d28f5ecd.js.map",
+    "static/css/2.4c97ca4f.chunk.css": "https://ank-dev.github.io/mode7fy/static/css/2.4c97ca4f.chunk.css",
+    "static/js/2.ccd75fc9.chunk.js": "https://ank-dev.github.io/mode7fy/static/js/2.ccd75fc9.chunk.js",
+    "static/js/2.ccd75fc9.chunk.js.map": "https://ank-dev.github.io/mode7fy/static/js/2.ccd75fc9.chunk.js.map",
+    "static/js/3.997edd46.chunk.js": "https://ank-dev.github.io/mode7fy/static/js/3.997edd46.chunk.js",
+    "static/js/3.997edd46.chunk.js.map": "https://ank-dev.github.io/mode7fy/static/js/3.997edd46.chunk.js.map",
+    "index.html": "https://ank-dev.github.io/mode7fy/index.html",
+    "static/css/2.4c97ca4f.chunk.css.map": "https://ank-dev.github.io/mode7fy/static/css/2.4c97ca4f.chunk.css.map",
+    "static/css/main.6049bb68.chunk.css.map": "https://ank-dev.github.io/mode7fy/static/css/main.6049bb68.chunk.css.map",
+    "static/js/2.ccd75fc9.chunk.js.LICENSE.txt": "https://ank-dev.github.io/mode7fy/static/js/2.ccd75fc9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.2ce9b56a.js",
+    "static/js/runtime-main.d28f5ecd.js",
     "static/css/2.4c97ca4f.chunk.css",
-    "static/js/2.312a1868.chunk.js",
-    "static/css/main.45234040.chunk.css",
-    "static/js/main.ed1e5bba.chunk.js"
+    "static/js/2.ccd75fc9.chunk.js",
+    "static/css/main.6049bb68.chunk.css",
+    "static/js/main.d6f19e1c.chunk.js"
   ]
 }
