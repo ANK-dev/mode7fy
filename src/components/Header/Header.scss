@@ -1,0 +1,16 @@
+@import 'bootstrap';
+
+#menu {
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+
+  // Ugly hack to fix aligment -- change to a real icon to avoid it
+  padding: 0;
+  padding-bottom: 40px;
+
+  @extend .mr-3;
+  @extend .btn-secondary;
+  @extend .shadow-none;
+
+}
