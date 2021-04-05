@@ -1,0 +1,47 @@
+@import 'bootstrap';
+
+$navbar_height: 56px;
+
+#sidebar {
+  color: white;
+  background-color: #2d3135;
+}
+
+#Mode7Controls {
+  @extend .text-left;
+  height: calc(100vh - #{$navbar_height});
+
+  h4 {
+    @extend .pt-3;
+    @extend .mb-3;
+  }
+
+  p {
+    @extend .d-inline-block;
+    @extend .float-right;
+  }
+
+  Button {
+    @extend .mt-4;
+    @extend .d-block;
+    @extend .btn-danger;
+    @extend .w-100;
+  }
+
+}
+
+#main-area {
+  @extend .p-0;
+}
+
+#Mode7Canvas {
+  height: calc(100vh - #{$navbar_height});
+  display: flex;
+  justify-content: center;
+  background-color: #000000;
+}
+
+#main-canvas {
+  image-rendering: pixelated;
+  object-fit: contain;
+}

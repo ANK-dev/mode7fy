@@ -3,14 +3,15 @@ import { useEffect } from "react";
 interface IStateProps {
   height: number;
   width: number;
-  z: number;
+  zDepth: number;
   scaleX: number;
-  scaleY: number
+  scaleY: number;
+  angle: number;
+
 };
 
 interface IMode7Canvas {
   state: IStateProps;
-  setState: React.Dispatch<React.SetStateAction<IStateProps>>
 };
 
 async function fillCanvas(props: IStateProps) {
@@ -33,20 +34,27 @@ async function fillCanvas(props: IStateProps) {
   mainCanvas.height = props.height;
   mainCanvas.width = props.width;
 
-  const mainCanvasWidthCenter = mainCanvas.width / 2;
-  const mainCanvasHeightCenter = mainCanvas.height / 2;
+  // const mainCanvasWidthCenter = mainCanvas.width / 2;
+  // const mainCanvasHeightCenter = mainCanvas.height / 2;
 
   let x = 0;
   let y = 0;
-  let z = props.z * -1;
+  let z = props.zDepth * -1;
   // let z = mainCanvasHeightCenter * -1;
   let scaleX = props.scaleX;
   // let scaleX = 16;
   let scaleY = props.scaleY;
   // let scaleY = 16;
 
-  let x_new = 0;
-  let y_new = 0;
+  let x_ = 0;
+  let y_ = 0;
+
+  let angle = props.angle;
+
+  // Conversion of degrees to radians
+  let cos = Math.cos(angle * (Math.PI/180));
+  let sin = Math.sin(angle * (Math.PI/180));
+
 
   let canvas = mainCtx?.getImageData(0, 0, mainCanvas.width, mainCanvas.height)
   let canvasData = canvas?.data;
@@ -55,42 +63,49 @@ async function fillCanvas(props: IStateProps) {
 
   for (y = 0; y < mainCanvas.height; y++) {
 
-    // Render floor only
-    if (z < 0){
-      z++;
-      continue;
-    }
-
-    y_new = y / z;
-    if (y_new < 0) {
-      y_new *= -1;
-    }
-    y_new *= scaleY;
-    y_new %= texture.height;
-
     for (x = 0; x < mainCanvas.width; x++) {
 
-      x_new = (mainCanvasWidthCenter - x) / z;
-      if (x_new < 0) {
-        x_new *= -1;
+      // Fill the skybox with solid color
+      if (z < 0){
+        canvasData![(y * mainCanvas.width! + x) * 4 + 0] = 0;
+        canvasData![(y * mainCanvas.width! + x) * 4 + 1] = 204;
+        canvasData![(y * mainCanvas.width! + x) * 4 + 2] = 255;
+        canvasData![(y * mainCanvas.width! + x) * 4 + 3] = 255;
+        continue;
       }
-      x_new *= scaleX;
-      x_new %= texture.width;
 
-      if (isNaN(x_new) || isNaN(y_new)) {
-        x_new = 0;
-        y_new = 0;
+      y_ = (((mainCanvas.width - x) * cos - (x) * sin)) / z;
+      x_ = (((mainCanvas.width - x) * sin + (x) * cos)) / z;
+
+      if (y_ < 0) { y_ *= -1; }
+      if (x_ < 0) { x_ *= -1; }
+
+      y_ *= scaleY;
+      x_ *= scaleX;
+
+      y_ %= texture.height;
+      x_ %= texture.width;
+      // x_ = (mainCanvasWidthCenter - x) / z;
+      // if (x_ < 0) {
+      //   x_ *= -1;
+      // }
+      // x_ *= scaleX;
+      // x_ %= texture.width;
+
+      if (isNaN(x_) || isNaN(y_)) {
+        x_ = 0;
+        y_ = 0;
       }
 
       // Truncate fraction part
-      x_new = Math.floor(x_new);
-      y_new = Math.floor(y_new);
+      x_ = Math.floor(x_);
+      y_ = Math.floor(y_);
 
       // To RGBA format
-      canvasData![(y * mainCanvas.width! + x) * 4 + 0] = textureData![(y_new * texture.width! + x_new) * 4 + 0]
-      canvasData![(y * mainCanvas.width! + x) * 4 + 1] = textureData![(y_new * texture.width! + x_new) * 4 + 1]
-      canvasData![(y * mainCanvas.width! + x) * 4 + 2] = textureData![(y_new * texture.width! + x_new) * 4 + 2]
-      canvasData![(y * mainCanvas.width! + x) * 4 + 3] = textureData![(y_new * texture.width! + x_new) * 4 + 3]
+      canvasData![(y * mainCanvas.width! + x) * 4 + 0] = textureData![(y_ * texture.width! + x_) * 4 + 0]
+      canvasData![(y * mainCanvas.width! + x) * 4 + 1] = textureData![(y_ * texture.width! + x_) * 4 + 1]
+      canvasData![(y * mainCanvas.width! + x) * 4 + 2] = textureData![(y_ * texture.width! + x_) * 4 + 2]
+      canvasData![(y * mainCanvas.width! + x) * 4 + 3] = textureData![(y_ * texture.width! + x_) * 4 + 3]
 
     }
     z++;

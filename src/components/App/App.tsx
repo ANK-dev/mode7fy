@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// import Mode7Canvas from '../Mode7/Mode7Canvas'
-// import Mode7Controls from '../Mode7/Mode7Controls';
+import Header from '../Header/Header';
 import Mode7 from '../Mode7/Mode7';
 
 function App() {
   return (
     <div className="App">
+      <Header/>
       <Mode7/>
     </div>
   );
