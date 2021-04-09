@@ -1,6 +1,5 @@
 {
   "name": "mode7fy",
-  "homepage": "https://ank-dev.github.io/mode7fy",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,11 +20,11 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PUBLIC_URL=/ react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "predeploy": "PUBLIC_URL=https://ank-dev.github.io/mode7fy npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

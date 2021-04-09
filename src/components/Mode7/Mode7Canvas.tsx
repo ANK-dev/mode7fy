@@ -1,64 +1,59 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-interface IStateProps {
-  height: number;
-  width: number;
-  zDepth: number;
-  scaleX: number;
-  scaleY: number;
-  angle: number;
-
-};
-
-interface IMode7Canvas {
-  state: IStateProps;
-};
+import { IStateProps } from './Mode7';
 
 async function fillCanvas(props: IStateProps) {
   const texture = new Image();
   texture.src = './texture2.png';
   await texture.decode();
 
+  /**************************** Off-Screen Canvas *****************************/
+
   // Creates an off-screen canvas to store the image as a texture
   const textureCanvas = document.createElement('canvas');
   textureCanvas.width = texture.naturalWidth;
   textureCanvas.height = texture.naturalHeight;
 
+  // Gets a handle and draws texture to off-screen canvas
   const textureCtx = textureCanvas.getContext('2d');
   textureCtx?.drawImage(texture, 0, 0, texture.width, texture.height);
 
+  /***************************** On-Screen Canvas *****************************/
 
+  // Gets a handle to the on-screen canvas element
+  // TODO: change `getElementById` to React Refs?
   const mainCanvas = document.getElementById('main-canvas') as HTMLCanvasElement;
   const mainCtx = mainCanvas?.getContext('2d');
 
   mainCanvas.height = props.height;
   mainCanvas.width = props.width;
 
-  // const mainCanvasWidthCenter = mainCanvas.width / 2;
-  // const mainCanvasHeightCenter = mainCanvas.height / 2;
+  /****************************************************************************/
 
   let x = 0;
   let y = 0;
-  let z = props.zDepth * -1;
-  // let z = mainCanvasHeightCenter * -1;
+  let z = props.zDepth;
   let scaleX = props.scaleX;
-  // let scaleX = 16;
   let scaleY = props.scaleY;
-  // let scaleY = 16;
 
   let x_ = 0;
   let y_ = 0;
 
-  let angle = props.angle;
+  let offsetX = props.offsetX;
+  let offsetY = props.offsetY;
+
+  // Corrects angle offset
+  let angle = props.angle - 45;
 
   // Conversion of degrees to radians
   let cos = Math.cos(angle * (Math.PI/180));
   let sin = Math.sin(angle * (Math.PI/180));
 
-
+  // Gets pixel data from main canvas
   let canvas = mainCtx?.getImageData(0, 0, mainCanvas.width, mainCanvas.height)
   let canvasData = canvas?.data;
 
+  // Gets pixel data from texture canvas
   let textureData = textureCtx?.getImageData(0, 0, texture.width, texture.height).data;
 
   for (y = 0; y < mainCanvas.height; y++) {
@@ -67,10 +62,10 @@ async function fillCanvas(props: IStateProps) {
 
       // Fill the skybox with solid color
       if (z < 0){
-        canvasData![(y * mainCanvas.width! + x) * 4 + 0] = 0;
-        canvasData![(y * mainCanvas.width! + x) * 4 + 1] = 204;
-        canvasData![(y * mainCanvas.width! + x) * 4 + 2] = 255;
-        canvasData![(y * mainCanvas.width! + x) * 4 + 3] = 255;
+        canvasData![(y * mainCanvas.width! + x) * 4 + 0] = 0;     // R
+        canvasData![(y * mainCanvas.width! + x) * 4 + 1] = 204;   // G
+        canvasData![(y * mainCanvas.width! + x) * 4 + 2] = 255;   // B
+        canvasData![(y * mainCanvas.width! + x) * 4 + 3] = 255;   // A
         continue;
       }
 
@@ -83,14 +78,11 @@ async function fillCanvas(props: IStateProps) {
       y_ *= scaleY;
       x_ *= scaleX;
 
+      y_ += offsetY;
+      x_ += offsetX;
+
       y_ %= texture.height;
       x_ %= texture.width;
-      // x_ = (mainCanvasWidthCenter - x) / z;
-      // if (x_ < 0) {
-      //   x_ *= -1;
-      // }
-      // x_ *= scaleX;
-      // x_ %= texture.width;
 
       if (isNaN(x_) || isNaN(y_)) {
         x_ = 0;
@@ -113,6 +105,10 @@ async function fillCanvas(props: IStateProps) {
   mainCtx?.putImageData(canvas!, 0, 0);
 
 }
+
+interface IMode7Canvas {
+  state: IStateProps;
+};
 
 const Mode7Canvas: React.FC<IMode7Canvas> = (props) => {
 

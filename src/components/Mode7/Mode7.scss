@@ -3,13 +3,17 @@
 $navbar_height: 56px;
 
 #sidebar {
+  @include media-breakpoint-up(md) {
+    height: calc(100vh - #{$navbar_height});
+  }
+
   color: white;
-  background-color: #2d3135;
+  background-color: $gray-900;
+  @extend .overflow-auto;
 }
 
 #Mode7Controls {
   @extend .text-left;
-  height: calc(100vh - #{$navbar_height});
 
   h4 {
     @extend .pt-3;
@@ -26,6 +30,8 @@ $navbar_height: 56px;
     @extend .d-block;
     @extend .btn-danger;
     @extend .w-100;
+    @extend .mb-3;
+    @extend .shadow-none;
   }
 
 }

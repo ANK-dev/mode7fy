@@ -1,17 +1,10 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
+
+import { IStateProps } from './Mode7';
 import Mode7Control from './Mode7Control';
 
 import './Mode7.scss';
-
-interface IStateProps {
-  height: number
-  width: number;
-  zDepth: number;
-  scaleX: number;
-  scaleY: number;
-  angle: number;
-}
 
 interface IMode7Controls {
   state: IStateProps;
@@ -21,12 +14,12 @@ interface IMode7Controls {
 
 const Mode7Controls: React.FC<IMode7Controls> = (props) => {
 
-  const {height, width, zDepth, scaleX, scaleY, angle} = props.state;
+  const {height, width, zDepth, scaleX, scaleY, angle, offsetX, offsetY} = props.state;
   const setState = props.setState;
   const resetState = props.resetState;
 
-  // TODO: fix any hack with proper type
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, prop: string) => {
+  // Restricts valid props as defined in the interface
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, prop: keyof IStateProps) => {
     setState((prevstate) => ({...prevstate, [prop]: e.target.valueAsNumber }))
   }
 
@@ -34,12 +27,11 @@ const Mode7Controls: React.FC<IMode7Controls> = (props) => {
   return (
     <div id="Mode7Controls">
       <h4>Controls</h4>
-
       <Form>
         <Mode7Control
           label="Z Depth"
           name="z-depth"
-          min={1}
+          min={-500}
           max={500}
           value={zDepth}
           onChange={(e) => handleChange(e, 'zDepth')}
@@ -84,10 +76,26 @@ const Mode7Controls: React.FC<IMode7Controls> = (props) => {
           value={angle}
           onChange={(e) => handleChange(e, 'angle')}
         />
+        <Mode7Control
+          label="Offset X"
+          name="offset-x"
+          min={0}
+          max={360}
+          value={offsetX}
+          onChange={(e) => handleChange(e, 'offsetX')}
+        />
+        <Mode7Control
+          label="Offset Y"
+          name="offset-y"
+          min={0}
+          max={360}
+          value={offsetY}
+          onChange={(e) => handleChange(e, 'offsetY')}
+        />
       </Form>
       <Button onClick={resetState}>Reset</Button>
     </div>
-    );
-  }
+  );
+}
 
   export default Mode7Controls;
